@@ -16,7 +16,6 @@ struct EditScreen: View {
     var contactId: String
     
     var body: some View {
-        NavigationView{
             ZStack{
                 VStack(alignment: .leading,spacing: 15){
                    TextField("Name", text: $editName)
@@ -28,7 +27,7 @@ struct EditScreen: View {
                         .frame(height: 50)
                         .overlay(RoundedRectangle(cornerRadius: 20).stroke().foregroundColor(.gray))
                     Button{
-                        viewModel.apiEditContact(id: Int(contactId)!, contact: Contact(name: editName, phone: editPhone)) { result in
+                        viewModel.apiEditContact(id: contactId, name: editName, phone: editPhone) { result in
                             if result {
                                 presentation.wrappedValue.dismiss()
                             }
@@ -54,9 +53,9 @@ struct EditScreen: View {
                 Image(systemName: "chevron.backward")
                     .foregroundColor(.white)
             })
-        }
+            .navigationBarBackButtonHidden(true)
         .onAppear{
-            viewModel.apiCallContact(id: Int(contactId)!) { item in
+            viewModel.apiCallContact(id: contactId) { item in
                 self.editName = item.name ?? ""
                 self.editPhone = item.phone ?? ""
             }

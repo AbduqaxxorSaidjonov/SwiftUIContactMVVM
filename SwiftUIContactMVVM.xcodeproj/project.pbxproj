@@ -25,6 +25,12 @@
 		766770A928AD330A00256F92 /* EditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766770A828AD330A00256F92 /* EditScreen.swift */; };
 		766770AC28AE0D0500256F92 /* CreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766770AB28AE0D0500256F92 /* CreateViewModel.swift */; };
 		766770AF28AE0E7000256F92 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766770AE28AE0E7000256F92 /* EditViewModel.swift */; };
+		769108B52987933B002E084B /* EndPointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769108B42987933B002E084B /* EndPointType.swift */; };
+		769108B7298793EA002E084B /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769108B6298793EA002E084B /* EndPoints.swift */; };
+		769108B9298794D1002E084B /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769108B8298794D1002E084B /* Consts.swift */; };
+		769108BB298799F5002E084B /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769108BA298799F5002E084B /* ApiService.swift */; };
+		769108BD2987C077002E084B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769108BC2987C077002E084B /* Extensions.swift */; };
+		769108BF2987C0AA002E084B /* CombineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769108BE2987C0AA002E084B /* CombineService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +71,12 @@
 		766770A828AD330A00256F92 /* EditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScreen.swift; sourceTree = "<group>"; };
 		766770AB28AE0D0500256F92 /* CreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewModel.swift; sourceTree = "<group>"; };
 		766770AE28AE0E7000256F92 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
+		769108B42987933B002E084B /* EndPointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointType.swift; sourceTree = "<group>"; };
+		769108B6298793EA002E084B /* EndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
+		769108B8298794D1002E084B /* Consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
+		769108BA298799F5002E084B /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		769108BC2987C077002E084B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		769108BE2987C0AA002E084B /* CombineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +170,8 @@
 			children = (
 				7667706A28ACFF2C00256F92 /* Persistence.swift */,
 				7667706528ACFF2C00256F92 /* Assets.xcassets */,
+				769108B8298794D1002E084B /* Consts.swift */,
+				769108BC2987C077002E084B /* Extensions.swift */,
 			);
 			path = apputils;
 			sourceTree = "<group>";
@@ -211,6 +225,10 @@
 			isa = PBXGroup;
 			children = (
 				7667709B28AD006800256F92 /* AFHttp.swift */,
+				769108B42987933B002E084B /* EndPointType.swift */,
+				769108B6298793EA002E084B /* EndPoints.swift */,
+				769108BA298799F5002E084B /* ApiService.swift */,
+				769108BE2987C0AA002E084B /* CombineService.swift */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -384,15 +402,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				766770AF28AE0E7000256F92 /* EditViewModel.swift in Sources */,
+				769108B9298794D1002E084B /* Consts.swift in Sources */,
 				766770A528AD328A00256F92 /* ContactCell.swift in Sources */,
+				769108B52987933B002E084B /* EndPointType.swift in Sources */,
 				766770A728AD32F100256F92 /* CreateScreen.swift in Sources */,
 				7667709C28AD006800256F92 /* AFHttp.swift in Sources */,
+				769108BB298799F5002E084B /* ApiService.swift in Sources */,
 				766770AC28AE0D0500256F92 /* CreateViewModel.swift in Sources */,
 				766770A928AD330A00256F92 /* EditScreen.swift in Sources */,
+				769108BF2987C0AA002E084B /* CombineService.swift in Sources */,
 				7667706E28ACFF2C00256F92 /* SwiftUIContactMVVM.xcdatamodeld in Sources */,
 				7667709928ACFFBC00256F92 /* HomeScreen.swift in Sources */,
 				7667706B28ACFF2C00256F92 /* Persistence.swift in Sources */,
+				769108B7298793EA002E084B /* EndPoints.swift in Sources */,
 				7667706228ACFF2B00256F92 /* SwiftUIContactMVVMApp.swift in Sources */,
+				769108BD2987C077002E084B /* Extensions.swift in Sources */,
 				766770A228AD00BF00256F92 /* Contact.swift in Sources */,
 				7667709728ACFFAE00256F92 /* HomeViewModel.swift in Sources */,
 			);

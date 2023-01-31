@@ -6,37 +6,53 @@
 //
 
 import Foundation
+import Combine
 
 class HomeViewModel: ObservableObject{
+    private var anyCancellables = Set<AnyCancellable>()
     @Published var isLoading = false
     @Published var contacts = [Contact]()
     
     func apiContactList(){
-        isLoading = true
-        AFHttp.get(url: AFHttp.API_CONTACT_LIST, params: AFHttp.paramsEmpty(), handler: {response in
-            self.isLoading = false
-            switch response.result{
-            case .success:
-                let contacts = try! JSONDecoder().decode([Contact].self, from: response.data!)
-                self.contacts = contacts
-            case let .failure(error):
-                print(error)
+        self.isLoading = true
+        CombineService.getContacts()
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished: break
+                case .failure(let error):
+                    print(error)
+                    self?.isLoading = true
+                }
+            } receiveValue: { [weak self] response in
+                guard let this = self else { return }
+                if !response.isEmpty {
+                    this.contacts = response.self
+                    self?.isLoading = false
+                }
             }
-        })
+            .store(in: &anyCancellables)
     }
     
-    func apiContactDelete(contact: Contact, handler: @escaping (Bool) -> Void){
+    func apiContactDelete(contact: Contact){
         isLoading = true
-        AFHttp.del(url: AFHttp.API_CONTACT_DELETE + contact.id!, params: AFHttp.paramsEmpty(), handler: {response in
-            self.isLoading = false
-            switch response.result{
-            case .success:
-                print(response.result)
-                handler(true)
-            case let .failure(error):
-                print(error)
-                handler(false)
+        CombineService.deleteContact(id: contact.id ?? "")
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished: break
+                case .failure(let error):
+                    print(error)
+                    self?.isLoading = true
+                }
+            } receiveValue: { [weak self] response in
+                print(response)
+                self?.isLoading = false
+                self?.apiContactList()
             }
-        })
+            .store(in: &anyCancellables)
+    }
+    
+    func delete(indexSet: IndexSet){
+        let contact = contacts[indexSet.first!]
+        apiContactDelete(contact: contact)
     }
 }

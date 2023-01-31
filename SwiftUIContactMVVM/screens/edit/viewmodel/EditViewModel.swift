@@ -6,39 +6,49 @@
 //
 
 import Foundation
+import Combine
 
 class EditViewModel: ObservableObject{
     
+    private var anyCancellables = Set<AnyCancellable>()
     @Published var isLoading = false
     
-    func apiCallContact(id: Int, completion: @escaping (Contact) -> Void) {
+    func apiCallContact(id: String, completion: @escaping (Contact) -> Void) {
         self.isLoading = true
-        AFHttp.get(url: AFHttp.API_CONTACT_SINGLE + String(id), params: AFHttp.paramsContactWith(id: id), handler: { response in
-            self.isLoading = false
-            switch response.result {
-            case .success:
-                let decode = try! JSONDecoder().decode(Contact.self, from: response.data!)
-                completion(decode)
-            case let .failure(error):
-                print(error)
-                completion(Contact())
+        
+        CombineService.getSingleContact(id: id)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished: break
+                case .failure(let error):
+                    print(error)
+                    self?.isLoading = true
+                }
+            } receiveValue: { [weak self] response in
+                guard let this = self else { return }
+                completion(response)
+                this.isLoading = false
             }
-        })
+            .store(in: &anyCancellables)
     }
     
-    func apiEditContact(id: Int, contact: Contact, completion: @escaping (Bool) -> Void) {
+    func apiEditContact(id: String, name: String, phone: String, completion: @escaping (Bool) -> Void) {
         self.isLoading = true
-        AFHttp.put(url: AFHttp.API_CONTACT_UPDATE + String(id), params: AFHttp.paramsContactUpdate(contact: contact)) { response in
-            self.isLoading = false
-            switch response.result {
-            case .success:
-                print("SUCCESS")
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil) 
+        
+        CombineService.editContact(id: id, name: name, phone: phone)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished: break
+                case .failure(let error):
+                    print(error)
+                    self?.isLoading = true
+                }
+            } receiveValue: { [weak self] response in
+                guard let this = self else { return }
                 completion(true)
-            case let .failure(error):
-                print(error)
-                completion(false)
+                this.isLoading = false
+                print(response)
             }
-        }
+            .store(in: &anyCancellables)
     }
 }

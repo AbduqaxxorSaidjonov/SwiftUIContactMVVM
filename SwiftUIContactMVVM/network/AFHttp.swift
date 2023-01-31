@@ -20,22 +20,18 @@ class AFHttp{
     
     class func get(url: String, params: Parameters, handler: @escaping (AFDataResponse<Any>) -> Void){
         AF.request(server(url: url), method: .get, parameters: params, headers: headers).validate().responseJSON(completionHandler: handler)
-        
     }
     
     class func post(url: String, params: Parameters, handler: @escaping (AFDataResponse<Any>) -> Void){
         AF.request(server(url: url), method: .post, parameters: params, headers: headers).validate().responseJSON(completionHandler: handler)
-        
     }
     
     class func put(url: String, params: Parameters, handler: @escaping (AFDataResponse<Any>) -> Void){
         AF.request(server(url: url), method: .put, parameters: params, headers: headers).validate().responseJSON(completionHandler: handler)
-        
     }
     
     class func del(url: String, params: Parameters, handler: @escaping (AFDataResponse<Any>) -> Void){
         AF.request(server(url: url), method: .delete, parameters: params, headers: headers).validate().responseJSON(completionHandler: handler)
-        
     }
 
 

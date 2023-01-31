@@ -6,22 +6,27 @@
 //
 
 import Foundation
+import Combine
 
 class CreateViewModel: ObservableObject{
+    private var anyCancellables = Set<AnyCancellable>()
     @Published var isLoading = false
     
-    func apiContactCreate(contact: Contact, handler: @escaping (Bool) -> (Void)){
+    func apiContactCreate(contact: Contact){
         self.isLoading = true
-        AFHttp.post(url: AFHttp.API_CONTACT_CREATE, params: AFHttp.paramsContactCreate(contact: contact), handler: {response in
-            self.isLoading = false
-            switch response.result{
-            case .success:
-                print(response.result)
-                handler(true)
-            case let .failure(error):
-                print(error)
-                handler(false)
+        CombineService.createContact(name: contact.name ?? "Optional name", phone: contact.phone ?? "Optional phone")
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished: break
+                case .failure(let error):
+                    print(error)
+                    self?.isLoading = true
+                }
+            } receiveValue: { [weak self] response in
+                guard let self = self else { return }
+                print(response)
+                self.isLoading = false
             }
-        })
+            .store(in: &anyCancellables)
     }
 }
